@@ -1,11 +1,17 @@
 <?php
-// error_reporting(E_ERROR | E_WARNING | E_PARSE);
-// namespace App;
+
+namespace App;
+
+use App\Connection;
 
 class QueryBuilder{
     public $query;
     public $isSelected = 0;
     // public $table;
+
+    function __construct(){
+        $this->connection = new Connection();
+    }
 
     public function select(){
         $this->select = func_get_args();
@@ -116,16 +122,14 @@ class QueryBuilder{
         return $this->query;
     }
 
+    public function get(){
+
+        return $this->connection->getMany($this->create_query());
+
+    }
+
 }
 
-$q = new QueryBuilder;
-// $q->from("posts")->where([['name', 'Samuel'], ['class', 'primary2'], ['age', 'five','<'], ['size', 20,'>'], ['weight', 'fat']])->order_by("created_at")->order("DESC");
-// print ($q->create_query());
-
-// echo '<br>';
-$p = new QueryBuilder;
-$p->update("posts", ["name"=>"sammy", "class" => "SS1", "grade"=>"8"]) ;
-print ($p->create_query());
-
+ 
 
 ?>
