@@ -15,6 +15,8 @@ class Connection{
 
 	protected $user;
 
+	protected $result;
+
 
 	function __construct(){
 
@@ -24,6 +26,13 @@ class Connection{
 			->connect();
 
 	}
+
+	// function __destruct(){
+		// mysqli_free_result($this->result); //free result
+// 
+    	// mysqli_close($this->conn);
+// 
+	// }
 
 	protected function getConfig(){
 		require __DIR__."../../config.php";
@@ -39,7 +48,7 @@ class Connection{
 
 		$this->conn = mysqli_connect($this->host,$this->user,$this->dbPass,$this->dbName);
 		if (!$this->conn) {
-			throw new \Exception(mysqli_connect_error());
+			throw new \Exception("Failed to connect: ".mysqli_connect_error());
 			
 		}
 		return $this;
@@ -48,9 +57,9 @@ class Connection{
 	public function getMany($sql){
 
 		 
-		$result = mysqli_query($this->conn,$sql);
+		$this->result = mysqli_query($this->conn,$sql);
 
-		return mysqli_fetch_assoc($result);
+		return mysqli_fetch_assoc($this->result);
 
 	}
 
@@ -64,5 +73,10 @@ class Connection{
 
 	public function getFirst(){
 
+	}
+	
+	public function pushInsert($sql){
+		echo $sql;
+		return mysqli_query($this->conn,$sql);
 	}
 }

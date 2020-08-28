@@ -7,6 +7,7 @@ use App\Connection;
 class QueryBuilder{
     public $query;
     public $isSelected = 0;
+    public $isInserted = 0;
     // public $table;
 
     function __construct(){
@@ -79,6 +80,7 @@ class QueryBuilder{
     public function insert($table, array $options){
         $processed = $this->processInsert($options);
         $this->query .= "INSERT INTO ".$table.$processed;
+        $this->isInserted = 1;
         
 
         // $this->query .= "INSERT INTO ".$table.$processed;
@@ -90,7 +92,7 @@ class QueryBuilder{
             $positions[] = $key;
             $values[] = $value;
         }
-        $sql = "(".implode(', ', $positions).") VALUES (".implode(', ', $values).")";
+        $sql = "(".implode(', ', $positions).") VALUES ('".implode("','",$values)."')";
         return $sql;
     }
 
@@ -120,12 +122,17 @@ class QueryBuilder{
         // $query
 
         return $this->query;
+        
     }
 
     public function get(){
-
-        return $this->connection->getMany($this->create_query());
-
+        // echo $this->query;
+        if ($this->isSelected == 1) {
+            return $this->connection->getMany($this->create_query());
+        }elseif ($this->isInserted == 1) {
+            return $this->connection->pushInsert($this->create_query());
+        }
+   
     }
 
 }

@@ -6,4 +6,4 @@ use App\QueryBuilder;
 
 $qb = new QueryBuilder;
 
-var_dump($qb->select("first_name")->from("users")->where([['id','4','<']])->get());
+echo($qb->insert("posts", ["title"=>"Query Builder Post", "body"=>"Query Builder Body", "author"=>"Query Builder Class"])->get());
