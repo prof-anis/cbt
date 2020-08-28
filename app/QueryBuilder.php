@@ -132,7 +132,7 @@ class QueryBuilder{
         }elseif ($this->isInserted == 1) {
             return $this->connection->pushInsert($this->create_query());
         }
-   
+//    
     }
 
 }

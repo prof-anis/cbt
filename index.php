@@ -6,4 +6,4 @@ use App\QueryBuilder;
 
 $qb = new QueryBuilder;
 
-echo($qb->insert("posts", ["title"=>"Query Builder Post", "body"=>"Query Builder Body", "author"=>"Query Builder Class"])->get());
+$qb->insert("posts", ["title"=>"Query Builder Post", "body"=>"Query Builder Hacked", "author"=>"Query Builder Class"])->get();

@@ -1,1 +1,0 @@
-Question1: Sir, to implement the insert into the connection class, method

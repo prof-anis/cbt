@@ -76,7 +76,6 @@ class Connection{
 	}
 	
 	public function pushInsert($sql){
-		echo $sql;
 		return mysqli_query($this->conn,$sql);
 	}
 }
