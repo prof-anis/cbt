@@ -1,11 +1,12 @@
 <?php
 
-namespace App;
+namespace App\Utilities\DB;
 
-use App\Connection;
-use App\ProcessData;
+use App\Utilities\DB\Connection;
+use App\Utilities\DB\ProcessData;
 
 class QueryBuilder{
+    public static $instance = 0;
     public $query;
     public $isSelected = 0;
     public $isInserted = 0;
@@ -13,7 +14,7 @@ class QueryBuilder{
     // public $table;
 
     function __construct(){
-        $this->connection = new Connection();
+        $this->connection = Connection::getInstance();
         $this->process_data = new ProcessData();
     }
 
@@ -63,7 +64,7 @@ class QueryBuilder{
         $this->query .= "INSERT INTO ".$table.$processed;
         $this->isInserted = 1;
 
-        return $this;
+        return $this->get();
     }
 
     
@@ -72,7 +73,7 @@ class QueryBuilder{
         $processed = $this->process_data->processUpdate($options);
         $this->query .= "UPDATE ".$table." SET".$processed;
 
-        return $this;
+        return $this->get();
     }
 
     public function delete(){
@@ -89,7 +90,7 @@ class QueryBuilder{
         return $this->query;
     }
 
-    public function get(){
+    public  function get(){
         if ($this->isSelected == 1) {
             return $this->connection->getMany($this->createQuery());
         }elseif ($this->isInserted == 1) {
@@ -97,6 +98,10 @@ class QueryBuilder{
         }elseif ($this->isDeleted == 1) {
             return $this->connection->deleteData($this->createQuery());
         }
+    }
+
+    public static function shout(){
+        self::$instance = self::$instance + 2;
     }
 
 }

@@ -6,4 +6,4 @@ const DBPASS = "";
 
 const DBUSER = "root";
 
-const DBNAME = "phpblog";
+const DBNAME = "ebio";

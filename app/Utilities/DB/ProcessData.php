@@ -1,5 +1,5 @@
 <?php
-namespace App;
+namespace App\Utilities\DB;
 
 class ProcessData {
     public function processWhere($array){

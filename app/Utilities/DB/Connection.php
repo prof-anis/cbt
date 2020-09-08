@@ -1,7 +1,11 @@
 <?php
-namespace App;
+namespace App\Utilities\DB;
 
-class Connection{
+use App\Utilities\Contracts\ConnectionContract;
+
+class Connection implements ConnectionContract{
+
+	public static $instance;
 
 	protected $sql;
 
@@ -17,31 +21,36 @@ class Connection{
 
 	protected $result;
 
+	protected $configPath = __DIR__.'/../../../config.php';
 
-	function __construct(){
+	
 
-		 
-
-		$this->getConfig()
-			->connect();
-
-	}
-
-	function __destruct(){
-		if(mysqli_free_result($this->result)); //free result
-
-    	mysqli_close($this->conn);
+	public static getInstance(){
+		if (self::$instance instanceOf self) {
+			return self::$instance;
+		}else{
+			self::$instance = new Connection;
+			self::$instance->getConfig()->connect();
+			return self::instance;
+		}
 
 	}
 
 	protected function getConfig(){
-		require __DIR__."../../config.php";
+		if (file_exists($this->configPath)) {
+			require $this->configPath;
 		$this->dbName = DBNAME;
 		$this->dbPass = DBPASS;
 		$this->host = DBHOST;
 		$this->user = DBUSER;
 
 		return $this;
+		}
+		else{
+			throw new \Exception("config file not found", 1);
+			
+		}
+		
 	}
 
 	protected function connect(){
@@ -54,7 +63,8 @@ class Connection{
 		return $this;
 	}
 
-	public function getMany($sql){
+	public function getMany($sql) :array
+	{
 
 		 
 		$this->result = mysqli_query($this->conn,$sql);
@@ -75,10 +85,12 @@ class Connection{
 
 	}
 	
-	public function pushInsert($sql){
+	public function pushInsert($sql) :bool
+	{
 		return mysqli_query($this->conn,$sql);
 	}
-	public function deleteData($sql){
+	public function deleteData($sql) :bool
+	{
 		return mysqli_query($this->conn, $sql);
 	}
 }
