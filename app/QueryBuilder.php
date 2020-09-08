@@ -9,6 +9,7 @@ class QueryBuilder{
     public $query;
     public $isSelected = 0;
     public $isInserted = 0;
+    public $isDeleted = 0;
     // public $table;
 
     function __construct(){
@@ -17,8 +18,7 @@ class QueryBuilder{
     }
 
     public function select(){
-        $this->select = func_get_args();
-        $processed = $this->process_data->processSelect();
+        $processed = $this->process_data->processSelect(func_get_args());
         $this->query = "SELECT ".$processed;
         $this->isSelected = 1;
 
@@ -28,15 +28,16 @@ class QueryBuilder{
     public function from($table){
         if ($this->isSelected == 1) {
             $this->query .= " FROM $table";
-        }else {
+        }else if ($this->isDeleted ==1){
+            $this->query .=" FROM $table";
+        }else{
             $this->query .="SELECT * FROM $table";
         }
         return $this; 
     }
 
     public function where(array $conditions){
-        $this->where = $conditions;
-        $processed = $this->process_data->processWhere();
+        $processed = $this->process_data->processWhere($conditions);
         $this->query .= " WHERE ".$processed;
 
         return $this;
@@ -74,6 +75,14 @@ class QueryBuilder{
         return $this;
     }
 
+    public function delete(){
+        $processed = $this->process_data->processDelete(func_get_args());
+        $this->query = "DELETE ".$processed;
+        $this->isDeleted = 1;
+
+        return $this;
+    }
+
    
 
     public function createQuery(){
@@ -85,6 +94,8 @@ class QueryBuilder{
             return $this->connection->getMany($this->createQuery());
         }elseif ($this->isInserted == 1) {
             return $this->connection->pushInsert($this->createQuery());
+        }elseif ($this->isDeleted == 1) {
+            return $this->connection->deleteData($this->createQuery());
         }
     }
 

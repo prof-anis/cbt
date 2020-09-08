@@ -2,15 +2,15 @@
 namespace App;
 
 class ProcessData {
-    public function processWhere(){
+    public function processWhere($array){
         $sql = [];
-        for ($i=0; $i < count($this->where); $i++) { 
-            if (count(($this->where)[$i]) < 1) {
+        for ($i=0; $i < count($array); $i++) { 
+            if (count(($array)[$i]) < 1) {
                 return "where function receives an array of format [['position','value','operator -- optional']]";
-            }elseif (count(($this->where)[$i]) == 2){
-                $sql[] = ($this->where)[$i][0]." = ".($this->where)[$i][1];
+            }elseif (count(($array)[$i]) == 2){
+                $sql[] = ($array)[$i][0]." = ".($array)[$i][1];
             }else {
-                $sql[] = ($this->where)[$i][0]." ".($this->where)[$i][2]." ".($this->where)[$i][1];
+                $sql[] = ($array)[$i][0]." ".($array)[$i][2]." ".($array)[$i][1];
             }
         }
         return implode(" AND ",$sql);
@@ -37,20 +37,22 @@ class ProcessData {
         return $sql;
     }
 
-    public function processSelect(){
-        if (count($this->select) < 1) {
+    public function processSelect(array $array){
+        if (count($array) < 1) {
             return "*";
         }else {
-            return implode(", ", $this->select);
+            return implode(", ", $array);
         }
    }
 
-
+   public function processDelete(array $array){
+    if (count($array) < 1) {
+        return "";
+    }else {
+        return implode(", ", $array);
+    }
+   }
 
 }
-
-
-
-
 
 ?>

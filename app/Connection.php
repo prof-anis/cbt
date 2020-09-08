@@ -27,12 +27,12 @@ class Connection{
 
 	}
 
-	// function __destruct(){
-		// mysqli_free_result($this->result); //free result
-// 
-    	// mysqli_close($this->conn);
-// 
-	// }
+	function __destruct(){
+		if(mysqli_free_result($this->result)); //free result
+
+    	mysqli_close($this->conn);
+
+	}
 
 	protected function getConfig(){
 		require __DIR__."../../config.php";
@@ -77,5 +77,8 @@ class Connection{
 	
 	public function pushInsert($sql){
 		return mysqli_query($this->conn,$sql);
+	}
+	public function deleteData($sql){
+		return mysqli_query($this->conn, $sql);
 	}
 }
