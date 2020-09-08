@@ -3,8 +3,7 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "App\\":"app/",
-            "Contract\\":"app/Contract"
+            "App\\":"app/"
         }
     }
 }
