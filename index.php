@@ -2,6 +2,8 @@
 
 require "vendor/autoload.php";
 
+require __DIR__."/app/Utilities/Helper/Helper.php";
+
 use App\Utilities\Router\Router;
 
 

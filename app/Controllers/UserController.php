@@ -3,9 +3,10 @@
 namespace App\Controllers;
 
 class UserController{
-	public function index($article_id,$title){
+	public function index(){
+		$user = "tobi";
 
-		echo "hello world";
+		return render("index",['user'=>$user]);
 		
 	}
 	
