@@ -3,9 +3,10 @@
 namespace App\Controllers;
 
 class UserController{
-	public function index(){
+	public function index($article_id,$title){
 
 		echo "hello world";
+		
 	}
 	
 	public function admin(){

@@ -1,9 +1,13 @@
 <?php
 namespace App\Utilities\Router;
 class ProcessUri{
-    public function processUriVariable($uri){
+    public function processRoutes($uri, $server_uri){
         $uri_array = explode('/', $uri);
-       if (count($uri_array) < 4) {
+        $server_uri_array = explode('/', $server_uri);
+
+        foreach 
+
+       if (count($uri_array) ) {
           return $uri;
        }else {
            # code...
