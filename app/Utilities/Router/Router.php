@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Utilities\Router;
+use App\Utilities\Router\ProcessUri;
 
  
 
@@ -23,7 +24,9 @@ class Router{
 	}
 
 	public static function match($request_method,$uri,$controller){
-		self::$routes[] = [ 'method'=>$request_method,'uri'=>$uri ,'controller'=> $controller ];
+		$process_url = new ProcessUri();
+		$processed_uri = $process_url->processUriVariable($uri);
+		self::$routes[] = [ 'method'=>$request_method,'uri'=>$processed_uri ,'controller'=> $controller ];
 	}
 
 	protected function loadRoutes(){
