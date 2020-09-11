@@ -8,6 +8,6 @@ class IsAuthenticated {
     }
     public function failed(){
         echo " You are not authorized to view this page, Please Login First";
-        redirect('');
+        // redirect('');
     }
 }

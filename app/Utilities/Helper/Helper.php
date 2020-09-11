@@ -20,8 +20,8 @@ function request(){
 }
 
 function route($name,$param = []){
-	
-	return Router::route($name,$param);
+	$router = new Router();
+	return $router->route($name,$param);
 }
 
 function asset($url){

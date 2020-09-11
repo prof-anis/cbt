@@ -13,11 +13,7 @@ class Router{
 	protected $routePath = __DIR__."/../../../routes.php";
 
 	function __construct(){
-		$this->loadRoutes();
-		$this->retrieveUri();
-		// $this->processRoute('project/name');
 		
-		return $this->runChecks();
 	}
 
 	protected function retrieveUri() : string
@@ -144,13 +140,32 @@ class Router{
 		return true;
 	}
 
-	public static function route($name,array $param = []){
+	public function route($name,array $param = []){
 		$host = request()->server('HTTP_HOST');
 		foreach (self::$routes as $key => $route) {
 			if ($route['name'] == $name) {
-				return $host."/".$route['uri'];
+				$route_uri = $route['uri'];
+				$route_uri_array = explode('/', $route_uri);
+				for ($i = 0; $i < count($route_uri_array); $i++){
+					if (strpos($route_uri_array[$i], ':') > -1){
+					$route_uri_array[$i] = $param[$i-2];
+					}
+					
+				}
 			}
+				
 		}
+		$processed_uri = implode("/", $route_uri_array);
+		return "http://".$host.$processed_uri;
+	}
+
+
+	public function run(){
+		$this->loadRoutes();
+		$this->retrieveUri();
+		// $this->processRoute('project/name');
+		
+		return $this->runChecks();
 	}
 }
 
