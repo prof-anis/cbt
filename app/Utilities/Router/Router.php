@@ -25,16 +25,16 @@ class Router{
 		return $_SERVER['REQUEST_URI'];
 	}
 
-	public static function get($uri,$controller, $middleware = []){
-		self::match('GET',$uri,$controller, $middleware = []);
+	public static function get($uri,$controller, $middleware = [],$name = ''){
+		self::match('GET',$uri,$controller, $middleware = [],$name);
 	}
 
 	public static function post($uri,$controller, $middleware = []){
 		self::match('POST',$uri,$controller, $middleware = []);
 	}
 
-	public static function match($request_method,$uri,$controller, $middleware = []){
-		self::$routes[] = [ 'method'=>$request_method,'uri'=>$uri ,'controller'=> $controller, 'middleware' => $middleware];
+	public static function match($request_method,$uri,$controller, $middleware = [],$name = ''){
+		self::$routes[] = [ 'method'=>$request_method,'uri'=>$uri ,'controller'=> $controller, 'middleware' => $middleware,'name'=>$name];
 	}
 
 	protected function loadRoutes(){
@@ -142,6 +142,15 @@ class Router{
 		}
 		
 		return true;
+	}
+
+	public static function route($name,array $param = []){
+		$host = request()->server('HTTP_HOST');
+		foreach (self::$routes as $key => $route) {
+			if ($route['name'] == $name) {
+				return $host."/".$route['uri'];
+			}
+		}
 	}
 }
 

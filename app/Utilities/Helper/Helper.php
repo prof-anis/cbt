@@ -2,6 +2,8 @@
 
 use App\Utilities\View\View;
 use App\Utilities\Config\Config;
+use App\Utilities\Request\Request;
+use App\Utilities\Router\Router;
 
 function render($view,$option){
 	$viewInstance = new View();
@@ -10,4 +12,18 @@ function render($view,$option){
 
 function config($value){
 	return Config::getConfig($value);
+}
+
+function request(){
+	$request = new Request;
+	return $request;
+}
+
+function route($name,$param = []){
+	
+	return Router::route($name,$param);
+}
+
+function asset($url){
+	return View::asset($url);
 }

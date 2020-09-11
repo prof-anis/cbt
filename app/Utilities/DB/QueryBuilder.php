@@ -7,6 +7,7 @@ use App\Utilities\DB\ProcessData;
 
 class QueryBuilder{
     public static $instance = 0;
+    protected $table;
     public $query;
     public $isSelected = 0;
     public $isInserted = 0;
@@ -23,16 +24,21 @@ class QueryBuilder{
         $this->query = "SELECT ".$processed;
         $this->isSelected = 1;
 
+        if(isset($this->table)){
+            $this->from($this->table);
+        }
+
          return $this;
     }
 
     public function from($table){
+        $this->table = $table;
         if ($this->isSelected == 1) {
-            $this->query .= " FROM $table";
+            $this->query .= " FROM $this->table";
         }else if ($this->isDeleted ==1){
-            $this->query .=" FROM $table";
+            $this->query .=" FROM $this->table";
         }else{
-            $this->query .="SELECT * FROM $table";
+            $this->query .="SELECT * FROM $this->table";
         }
         return $this; 
     }
@@ -59,9 +65,9 @@ class QueryBuilder{
         return $this;
     }
 
-    public function insert($table, array $options){
+    public function insert(array $options){
         $processed = $this->process_data->processInsert($options);
-        $this->query .= "INSERT INTO ".$table.$processed;
+        $this->query .= "INSERT INTO ".$this->table.$processed;
         $this->isInserted = 1;
 
         return $this->get();
@@ -69,9 +75,9 @@ class QueryBuilder{
 
     
 
-    public function update($table, array $options){
+    public function update(array $options){
         $processed = $this->process_data->processUpdate($options);
-        $this->query .= "UPDATE ".$table." SET".$processed;
+        $this->query .= "UPDATE ".$this->table." SET".$processed;
 
         return $this->get();
     }

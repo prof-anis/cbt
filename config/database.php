@@ -7,5 +7,5 @@ return [
 
     "DBUSER" => "root",
 
-    "DBNAME" => "phpblog",
+    "DBNAME" => "ictnet",
 ];

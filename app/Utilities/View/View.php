@@ -54,5 +54,8 @@ class View
 			return [$file_name];
 
 	}
+	public static function asset($url){
+		return __DIR__.'/../../../resources/assets/'.$url;
+	}
 
 }
