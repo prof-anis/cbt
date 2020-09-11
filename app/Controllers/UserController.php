@@ -4,9 +4,11 @@ namespace App\Controllers;
 
 class UserController{
 	public function index(){
-		$user = "tobi";
+		$user = "Sam's Tab";
+		$email = "sammy@gmail.com";
+		$role = "Owner";
 
-		return render("index",['user'=>$user]);
+		return render("index",['user'=>$user, 'email'=>$email, 'role'=>$role]);
 		
 	}
 	

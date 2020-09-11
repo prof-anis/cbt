@@ -11,5 +11,5 @@ interface ConnectionContract{
 
 	public function deleteData(String $sql): bool;
 
-	public function getInstance();
+	public static function getInstance();
 }

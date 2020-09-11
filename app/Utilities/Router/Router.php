@@ -25,8 +25,16 @@ class Router{
 		return $_SERVER['REQUEST_URI'];
 	}
 
-	public static function match($request_method,$uri,$controller){
-		self::$routes[] = [ 'method'=>$request_method,'uri'=>$uri ,'controller'=> $controller ];
+	public static function get($uri,$controller, $middleware = []){
+		self::match('GET',$uri,$controller, $middleware = []);
+	}
+
+	public static function post($uri,$controller, $middleware = []){
+		self::match('POST',$uri,$controller, $middleware = []);
+	}
+
+	public static function match($request_method,$uri,$controller, $middleware = []){
+		self::$routes[] = [ 'method'=>$request_method,'uri'=>$uri ,'controller'=> $controller, 'middleware' => $middleware];
 	}
 
 	protected function loadRoutes(){
@@ -50,12 +58,13 @@ class Router{
 				$controller = $route['controller'];
 				$controller = explode('@', $controller);
 				$class = "App\Controllers\\$controller[0]";
-				
-				$class = new $class;
-				$method = $controller[1];
-
-				return $class->$method(...$this->route_params);
-
+				$middleware_status = $this->checkMiddleware($route);
+				if ($middleware_status) {
+					$class = new $class;
+					$method = $controller[1];
+					return $class->$method(...$this->route_params);
+				}
+				exit;
 			}
 			else{
 				$this->route_params = [];
@@ -113,6 +122,26 @@ class Router{
 			}	
 		}
 		return $trimmed_array;
+	}
+	protected function checkMiddleware($route){
+		$middleware = $route['middleware'];
+		foreach ($middleware as $key => $value) {
+			 $ware_class_name = config("middleware.$value");
+			 $ware_class = new $ware_class_name;
+
+			 if($ware_class->handle()){
+				echo "Middleware returns True";
+			 }else {
+				 if(method_exists($ware_class,'failed')){
+					$ware_class->failed();
+					exit;
+				 }
+				 exit;
+			 }
+
+		}
+		
+		return true;
 	}
 }
 

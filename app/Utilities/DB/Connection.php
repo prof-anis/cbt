@@ -21,35 +21,42 @@ class Connection implements ConnectionContract{
 
 	protected $result;
 
-	protected $configPath = __DIR__.'/../../../config.php';
+    protected $configPath = __DIR__.'/../../../config';
 
 	
 
-	public static getInstance(){
+	public static function getInstance(){
 		if (self::$instance instanceOf self) {
 			return self::$instance;
 		}else{
 			self::$instance = new Connection;
 			self::$instance->getConfig()->connect();
-			return self::instance;
+			return self::$instance;
 		}
 
 	}
 
 	protected function getConfig(){
-		if (file_exists($this->configPath)) {
-			require $this->configPath;
-		$this->dbName = DBNAME;
-		$this->dbPass = DBPASS;
-		$this->host = DBHOST;
-		$this->user = DBUSER;
+		// if (file_exists($this->configPath)) {
+			// include($this->configPath);
+		// $this->dbName = DBNAME;
+		// $this->dbPass = DBPASS;
+		// $this->host = DBHOST;
+		// $this->user = DBUSER;
+
+		// return $this;
+		// }
+		// else{
+		// 	throw new \Exception("config file not found", 1);
+			
+		// }
+
+		$this->dbName = config('database.DBNAME');
+		$this->dbPass = config('database.DBPASS');
+		$this->host = config('database.DBHOST');
+		$this->user = config('database.DBUSER');
 
 		return $this;
-		}
-		else{
-			throw new \Exception("config file not found", 1);
-			
-		}
 		
 	}
 

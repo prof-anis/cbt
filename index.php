@@ -5,10 +5,9 @@ require "vendor/autoload.php";
 require __DIR__."/app/Utilities/Helper/Helper.php";
 
 use App\Utilities\Router\Router;
+// use App\Utilities\DB\QueryBuilder;
 
-
-function dd($var){
-    var_dump($var);
-    exit;
-}
 $router = new Router;
+
+// $qb = new QueryBuilder;
+// var_dump($qb->select()->from("posts")->get());
