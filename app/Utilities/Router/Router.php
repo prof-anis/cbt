@@ -141,6 +141,7 @@ class Router{
 	}
 
 	public function route($name,array $param = []){
+		$route_uri_array = [];
 		$host = request()->server('HTTP_HOST');
 		foreach (self::$routes as $key => $route) {
 			if ($route['name'] == $name) {

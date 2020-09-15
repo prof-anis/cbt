@@ -1,9 +1,10 @@
 <?php
 use App\Utilities\Router\Router;
+use App\Utilities\View\View;
 
+// Router::get('/project/:title/users/index','UserController@index',['auth'],'me');
+Router::get('/project/index', 'Views@indexPage', [], 'home');
+Router::post('/project/login', 'Views@loginPage', [], 'login');
 
-Router::get('/project/:title/users/index','UserController@index',['auth'],'me');
-Router::post( '/project/users/admin', 'UserController@admin');
-Router::get('/project/:id/:title/login', 'Views@login_page', [], 'login_page');
 
 ?>

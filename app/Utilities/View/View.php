@@ -55,7 +55,9 @@ class View
 
 	}
 	public static function asset($url){
-		return __DIR__.'/../../../resources/assets/'.$url;
+		$file_path = __DIR__.'/../../../resources/assets/'.$url;
+		$file_path = str_replace("\\","/",$file_path);
+		return $file_path;
 	}
 
 }
