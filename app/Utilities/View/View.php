@@ -17,9 +17,8 @@ class View
 		
 	}
 
-	public function show($view,array $options){
+	public function show($view,array $options = []){
 		extract($options);
-
 		if (file_exists($this->viewPath."/".$view.".php")) {
 			$template = $this->loadFile($view);
 			require $this->storagePath."/".$template;
@@ -55,9 +54,8 @@ class View
 
 	}
 	public static function asset($url){
-		$file_path = __DIR__.'/../../../resources/assets/'.$url;
-		$file_path = str_replace("\\","/",$file_path);
-		return $file_path;
+		$server_host = request()->server('HTTP_HOST');
+		return "http://$server_host/project/resources/assets/".$url;
 	}
 
 }

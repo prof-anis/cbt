@@ -7,5 +7,5 @@ return [
 
     "DBUSER" => "root",
 
-    "DBNAME" => "ictnet",
+    "DBNAME" => "mvc_framework_test",
 ];

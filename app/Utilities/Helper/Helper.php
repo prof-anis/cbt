@@ -5,7 +5,7 @@ use App\Utilities\Config\Config;
 use App\Utilities\Request\Request;
 use App\Utilities\Router\Router;
 
-function render($view,$option){
+function render($view,$option = []){
 	$viewInstance = new View();
 	return $viewInstance->show($view,$option);
 }

@@ -20,7 +20,7 @@
     <!--==== Bootstrap css file ====-->
     
 
-    <?php echo "<link rel='stylesheet' href='echo asset('css/bootstrap.min.css')' type='text/css'>" ?>
+    <link rel='stylesheet' href="<?php echo asset('css/bootstrap.min.css'); ?>" type="text/css">
 
     
 
@@ -44,7 +44,7 @@
 </head>
 
 <body>
-    <img width="500px" alt="<?php echo asset('images/image1.jpg');?>" src="<?php asset('images/image1.jpg');?>"/>
+    <img width="500px" alt="<?php echo asset('images/image1.jpg');?>" src="<?php echo asset('images/image1.jpg');?>"/>
 
     <!-- Preloader -->
     <div class="preloader">
@@ -92,7 +92,7 @@
                         <!-- Nav Menu -->
                         <div class="nav-menu-cover">
                             <ul class="nav nav-menu">
-                                <li><a href="index.html">Home</a></li>
+                                <li><a href="<?php echo asset('images/image1.jpg'); ?>">Home</a></li>
                                 <li><a href="about.html">About</a></li>
                                 <li class="menu-item-has-children"><a href="#">Blog</a>
                                     <ul class="sub-menu">

@@ -21,6 +21,9 @@
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
                                     <div class="card-body">
                                         <form method="POST">
+                                        <div class="alert alert-<?php echo isset($_SESSION['error'])? 'danger' : 'light'; ?>" role="alert">
+                                        <small id="emailHelp" class="form-text text-muted"><?php echo isset($_SESSION['error'])? $_SESSION['error'] : ''; ?></small>
+                                        </div>
                                             <div class="form-group"><label class="small mb-1" for="inputEmailAddress">Email</label><input class="form-control py-4" id="inputEmailAddress" type="email" placeholder="Enter email address" name="email"/></div>
                                             <div class="form-group"><label class="small mb-1" for="inputPassword">Password</label><input class="form-control py-4" id="inputPassword" type="password" placeholder="Enter password" name="password"/></div>
                                             <div class="form-group">
@@ -30,7 +33,7 @@
                                         </form>
                                     </div>
                                     <div class="card-footer text-center">
-                                        <div class="small"><a href="register.html">Need an account? Sign up!</a></div>
+                                        <div class="small"><a href="<?php echo route('register'); ?>">Need an account? Sign up!</a></div>
                                     </div>
                                 </div>
                             </div>

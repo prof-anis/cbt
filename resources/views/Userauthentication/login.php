@@ -7,7 +7,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Page Title - SB Admin</title>
-        <link href="<?php echo asset('adminpage/css/styles.css'); ?>" rel="stylesheet" />
+        <link href="{{asset('adminpage/css/styles.css')}}" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="bg-primary">
@@ -21,6 +21,9 @@
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
                                     <div class="card-body">
                                         <form method="POST">
+                                        <div class="alert alert-{{isset($_SESSION['error'])? 'danger' : 'light'}}" role="alert">
+                                        <small id="emailHelp" class="form-text text-muted">{{isset($_SESSION['error'])? $_SESSION['error'] : ''}}</small>
+                                        </div>
                                             <div class="form-group"><label class="small mb-1" for="inputEmailAddress">Email</label><input class="form-control py-4" id="inputEmailAddress" type="email" placeholder="Enter email address" name="email"/></div>
                                             <div class="form-group"><label class="small mb-1" for="inputPassword">Password</label><input class="form-control py-4" id="inputPassword" type="password" placeholder="Enter password" name="password"/></div>
                                             <div class="form-group">
@@ -30,7 +33,7 @@
                                         </form>
                                     </div>
                                     <div class="card-footer text-center">
-                                        <div class="small"><a href="register.html">Need an account? Sign up!</a></div>
+                                        <div class="small"><a href="{{route('register')}}">Need an account? Sign up!</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -55,6 +58,6 @@
         </div>
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="<?php echo asset('js/scripts.js'); ?>"></script>
+        <script src="{{asset('js/scripts.js')}}"></script>
     </body>
 </html>

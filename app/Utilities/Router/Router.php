@@ -55,6 +55,7 @@ class Router{
 				$controller = explode('@', $controller);
 				$class = "App\Controllers\\$controller[0]";
 				$middleware_status = $this->checkMiddleware($route);
+				// exit("$middleware_status");
 				if ($middleware_status) {
 					$class = new $class;
 					$method = $controller[1];
@@ -124,15 +125,13 @@ class Router{
 		foreach ($middleware as $key => $value) {
 			 $ware_class_name = config("middleware.$value");
 			 $ware_class = new $ware_class_name;
-
 			 if($ware_class->handle()){
-				echo "Middleware returns True";
 			 }else {
 				 if(method_exists($ware_class,'failed')){
 					$ware_class->failed();
-					exit;
+					return true;
 				 }
-				 exit;
+				 return false;
 			 }
 
 		}
@@ -147,17 +146,20 @@ class Router{
 			if ($route['name'] == $name) {
 				$route_uri = $route['uri'];
 				$route_uri_array = explode('/', $route_uri);
-				for ($i = 0; $i < count($route_uri_array); $i++){
-					if (strpos($route_uri_array[$i], ':') > -1){
-					$route_uri_array[$i] = $param[$i-2];
+				$route_uri_array = $this->trimRouteArray($route_uri_array);
+
+				for ($i=0; $i < count($route_uri_array); $i++) { 
+					if(strpos($route_uri_array[$i], ':') > -1){
+						//this is a route parameter
+						$strip = str_replace(":","",$route_uri_array[$i]);
+						$route_uri_array[$i] = $param[$strip];
 					}
-					
 				}
 			}
 				
 		}
 		$processed_uri = implode("/", $route_uri_array);
-		return "http://".$host.$processed_uri;
+		return "http://".$host."/".$processed_uri;
 	}
 
 

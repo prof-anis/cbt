@@ -70,18 +70,19 @@ class Connection implements ConnectionContract{
 		return $this;
 	}
 
-	public function getMany($sql) :array
-	{
-
-		 
+	public function getOne($sql){
 		$this->result = mysqli_query($this->conn,$sql);
-
+		// exit(var_dump($this->result));
 		return mysqli_fetch_assoc($this->result);
 
 	}
 
-	public function getOne(){
+	public function getMany($sql){
+		$this->result = mysqli_query($this->conn,$sql);
+		$results = mysqli_fetch_all($this->result, MYSQLI_ASSOC);
+		mysqli_free_result($this->result); //free result
 
+		return  $results;
 	}
 
 	public function getLast(){
@@ -99,5 +100,15 @@ class Connection implements ConnectionContract{
 	public function deleteData($sql) :bool
 	{
 		return mysqli_query($this->conn, $sql);
+	}
+	public function updateData($sql){
+		return mysqli_query($this->conn, $sql);
+	}
+	public function closeconn(){
+		return mysqli_close($this->conn); 
+	}
+	public function getConnection(){
+		return mysqli_connect($this->host,$this->user,$this->dbPass,$this->dbName);
+
 	}
 }
