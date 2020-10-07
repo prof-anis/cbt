@@ -56,7 +56,7 @@ class View
 	}
 	public static function asset($url){
 		$server_host = request()->server('HTTP_HOST');
-		return "http://$server_host/project/resources/assets/".$url;
+		return "http://$server_host/resources/assets/".$url;
 	}
 
 }
