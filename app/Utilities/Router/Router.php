@@ -18,15 +18,16 @@ class Router{
 
 	protected function retrieveUri() : string
 	{
-		return $_SERVER['REQUEST_URI'];
+		$uri = explode("?", $_SERVER['REQUEST_URI']);
+		return $uri[0];
 	}
 
 	public static function get($uri,$controller, $middleware = [],$name = ''){
-		self::match('GET',$uri,$controller, $middleware = [],$name);
+		self::match('GET',$uri,$controller, $middleware,$name);
 	}
 
-	public static function post($uri,$controller, $middleware = []){
-		self::match('POST',$uri,$controller, $middleware = []);
+	public static function post($uri,$controller, $middleware = [], $name = ''){
+		self::match('POST',$uri,$controller, $middleware, $name);
 	}
 
 	public static function match($request_method,$uri,$controller, $middleware = [],$name = ''){
@@ -70,8 +71,7 @@ class Router{
 		}
 
 		if ($not_found) {
-			echo "404 not found";
-			exit;
+			return render('404_page');
 		}
 	}
 
@@ -122,6 +122,7 @@ class Router{
 	}
 	protected function checkMiddleware($route){
 		$middleware = $route['middleware'];
+		// exit(var_dump($middleware));
 		foreach ($middleware as $key => $value) {
 			 $ware_class_name = config("middleware.$value");
 			 $ware_class = new $ware_class_name;

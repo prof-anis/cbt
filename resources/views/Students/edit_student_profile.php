@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Profile - SB Admin</title>
+        <title>Profile - Student</title>
         <link href="{{asset('adminpage/css/styles.css')}}" rel="stylesheet"/>
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
@@ -16,7 +16,7 @@
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="{{route('home')}}">Exam Portal</a><button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button
+            <a class="navbar-brand" href="{{route('home')}}">Student Portal</a><button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button
             ><!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
                 <div class="input-group">
@@ -48,27 +48,11 @@
                                 ><div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard</a
                             >
-                            <a class="nav-link" href="{{route('profile')}}"
+                            <a class="nav-link" href="{{route('student_profile')}}"
                                 ><div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Profile</a
                             >
-                            <div class="row">
-                                <div class="col-8">
-                                    <div class="sb-sidenav-menu-heading">Courses</div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="sb-sidenav-menu-heading"><div class="sb-nav-link-icon"><a href="{{route('add_course')}}"><i class="fas fa-plus-circle"></i></a></div></div>  
-                                </div>
-                            </div>
-
-                            <?php foreach($courses as $course): ?>
-                                
-                                <a class="nav-link" href="{{route('exams_page', ['id'=>$course['course_id']])}}"
-                                ><div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                {{ucfirst($course['name'])}}</a
-                                >
                             
-                            <?php endforeach ?>
                             <div class="sb-sidenav-menu-heading">Addons</div>
                             <a class="nav-link" href="charts.html"
                                 ><div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
@@ -98,7 +82,7 @@
                     <div class="content">
                         <div>
                             <p>Edit your account details below:</p>
-                            <form method="POST" action="{{route('profile_edit', ['id'=>$user_id])}}">
+                            <form method="POST" action="{{route('student_profile_edit', ['id'=>$user_id])}}">
                                 <table>
                                 <tr>
                                         <td>

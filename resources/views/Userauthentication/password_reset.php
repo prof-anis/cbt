@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Login</title>
+        <title>Reset Password</title>
         <link href="{{asset('adminpage/css/styles.css')}}" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
     </head>
@@ -18,15 +18,12 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-5">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Password Recovery</h3></div>
                                     <div class="card-body">
-                                        <form method="POST">
-                                        <div class="alert alert-{{isset($_SESSION['error'])? 'danger' : 'light'}}" role="alert">
-                                        <small id="emailHelp" class="form-text text-muted">{{isset($_SESSION['error'])? $_SESSION['error'] : ''}}</small>
-                                        </div>
-                                            <div class="form-group"><label class="small mb-1" for="inputEmailAddress">Email</label><input class="form-control py-4" id="inputEmailAddress" type="email" placeholder="Enter email address" name="email"/></div>
-                                            <div class="form-group"><label class="small mb-1" for="inputPassword">Password</label><input class="form-control py-4" id="inputPassword" type="password" placeholder="Enter password" name="password"/></div>
-                                            <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0"><a class="small" href="{{route('password_reset')}}">Forgot Password?</a><input class="btn btn-primary" type="submit" value="Login" name="login_submit"/></div>
+                                        <div class="small mb-3 text-muted">Enter your email address and we will send you a link to reset your password.</div>
+                                        <form>
+                                            <div class="form-group"><label class="small mb-1" for="inputEmailAddress">Email</label><input class="form-control py-4" id="inputEmailAddress" type="email" aria-describedby="emailHelp" placeholder="Enter email address" /></div>
+                                            <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0"><a class="small" href="{{route('login')}}">Return to login</a><a class="btn btn-primary" href="#">Reset Password</a></div>
                                         </form>
                                     </div>
                                     <div class="card-footer text-center">
@@ -42,7 +39,7 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; CBT Technologies 2020</div>
+                            <div class="text-muted">Copyright &copy; CBT Examinations 2020</div>
                             <div>
                                 <a href="#">Privacy Policy</a>
                                 &middot;

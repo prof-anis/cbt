@@ -35,7 +35,8 @@ class View
 		if (config('view.cache')== false) {
 			return $this->openAndReplaceFile($view)[0];
 		}elseif(config('view.cache') == true){
-
+			//Still needs adjustments
+			return $this->openAndReplaceFile($view)[0];
 		}
 	}
 	public function openAndReplaceFile($view){

@@ -1,3 +1,12 @@
+<?php
+    // $query = "SELECT quizzes.quiz_id, courses.name as course_name ,courses.course_id, quizzes.name as quiz_name\n"
+
+    // . "FROM quizzes\n"
+
+    // . "INNER JOIN courses ON quizzes.course_id=courses.course_id"
+?>
+
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -6,7 +15,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Profile - SB Admin</title>
+        <title>Exams</title>
         <link href="{{asset('adminpage/css/styles.css')}}" rel="stylesheet"/>
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
@@ -69,6 +78,18 @@
                                 >
                             
                             <?php endforeach ?>
+                            
+
+
+
+                            
+                            
+                           
+
+
+
+
+
                             <div class="sb-sidenav-menu-heading">Addons</div>
                             <a class="nav-link" href="charts.html"
                                 ><div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
@@ -81,51 +102,66 @@
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
-                        {{$email}}
+                        {{$_SESSION['name']}}
                     </div>
                 </nav>
             </div>
             <div id="layoutSidenav_content">
             <main class="loggedin">
                 <div class="container-fluid">
-                            <h1 class="mt-4">Profile</h1>
+                            <h2 class="mt-4">Available Exams</h2>
                             <ol class="breadcrumb mb-4">
-                                <li class="breadcrumb-item ">Profile</li>
-                                <li class="breadcrumb-item active">Edit Profile</li>
+                                <li class="breadcrumb-item ">Exams</li>
+                                <li class="breadcrumb-item active">Available Exams</li>
                             </ol>
                             
 
                     <div class="content">
-                        <div>
-                            <p>Edit your account details below:</p>
-                            <form method="POST" action="{{route('profile_edit', ['id'=>$user_id])}}">
-                                <table>
-                                <tr>
-                                        <td>
-                                            Username
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" name="edit_username" id="" value="{{$username}}">
-                                        </td>
-                                    </tr>    
-                                    <tr>
-                                        <td>
-                                            Email
-                                        </td>
-                                        <td>
-                                            <input type="email" class="form-control" name="edit_email" id="" value="{{$email}}"/>
-                                        </td>
-                                    </tr>
+                    <div class="card mb-4">
+                            <div class="card-header"><i class="fas fa-table mr-1"></i>{{$message}}</div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Exam Name</th>
+                                                <th>Course Name</th>
+                                                <th>Duration</th>
+                                                <th>Exam Code</th>
+                                            </tr>
+                                        </thead>
+                                        <!-- <tfoot>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Position</th>
+                                                <th>Office</th>
+                                                <th>Age</th>
+                                                <th>Start date</th>
+                                                <th>Salary</th>
+                                            </tr>
+                                        </tfoot> -->
+                                        <tbody>
+                                        <?php foreach($exams as $exam): ?>
+
+                                            <tr>
+                                                <td><a class="nav-link " href="{{route('questions_page', ['id'=>$exam['quiz_id']])}}">{{ $exam['quiz_name'] }}</a></td>
+                                                <td>{{ $exam['course_name'] }}</td>
+                                                <td>{{ $exam['duration'] }} Minutes</td>
+                                                <td>{{ $exam['exam_code'] }}</td>
+                                            </tr>
+                                        <?php endforeach?>   
+                                        </tbody>
+                                    </table>
                                     
-                                </table>
+                                </div>
                                 <ul class="nav nav-pills justify-content-end">
     
                                     <li class="nav-item">
-                                    <input type="submit" class="nav-link active" value="Change" name="edit_profile_submit">
+                                    <a class="nav-link active" href="{{route('add_exam')}}">Add Exam</a>
                                     </li>
                                     
                                 </ul>
-                            </form>
+                            </div>
                         </div>
                     </div>
 

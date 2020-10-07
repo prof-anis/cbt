@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Profile - SB Admin</title>
+        <title>Exams - Add</title>
         <link href="{{asset('adminpage/css/styles.css')}}" rel="stylesheet"/>
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
@@ -16,7 +16,7 @@
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="{{route('home')}}">Exam Portal</a><button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button
+            <a class="navbar-brand" href="index.html">Start Bootstrap</a><button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button
             ><!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
                 <div class="input-group">
@@ -69,6 +69,18 @@
                                 >
                             
                             <?php endforeach ?>
+                            
+
+
+
+                            
+                            
+                           
+
+
+
+
+
                             <div class="sb-sidenav-menu-heading">Addons</div>
                             <a class="nav-link" href="charts.html"
                                 ><div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
@@ -81,47 +93,60 @@
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
-                        {{$email}}
+                        {{$_SESSION['name']}}
                     </div>
                 </nav>
             </div>
             <div id="layoutSidenav_content">
             <main class="loggedin">
                 <div class="container-fluid">
-                            <h1 class="mt-4">Profile</h1>
+                            <h1 class="mt-4">Add Exam</h1>
                             <ol class="breadcrumb mb-4">
-                                <li class="breadcrumb-item ">Profile</li>
-                                <li class="breadcrumb-item active">Edit Profile</li>
+                                <li class="breadcrumb-item ">Exams</li>
+                                <li class="breadcrumb-item active">Add</li>
                             </ol>
                             
 
                     <div class="content">
                         <div>
-                            <p>Edit your account details below:</p>
-                            <form method="POST" action="{{route('profile_edit', ['id'=>$user_id])}}">
+                            <p>Please input the course name in the field below</p>
+                            <form method="POST">
                                 <table>
                                 <tr>
-                                        <td>
-                                            Username
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" name="edit_username" id="" value="{{$username}}">
-                                        </td>
-                                    </tr>    
-                                    <tr>
-                                        <td>
-                                            Email
-                                        </td>
-                                        <td>
-                                            <input type="email" class="form-control" name="edit_email" id="" value="{{$email}}"/>
-                                        </td>
-                                    </tr>
+                                    <div class="alert alert-{{isset($_SESSION['error'])? 'danger' : 'light'}}" role="alert">
+                                        <small id="emailHelp" class="form-text text-muted">{{$message}}</small>
+                                    </div>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Exam Name
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" name="exam_name" id="" placeholder="Input Exam Name">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    
+                                    <td>
+                                        Duration
+                                    </td>
+                                    
+                                    <!-- <td>
+                                        <select class="form-control" id="exampleFormControlSelect1">
+                                            <option>10</option>
+                                            <option>30</option>
+                                            <option>60</option>
+                                        </select>
+                                    </td> -->
+                                    <td><input type="range" class="form-control-range" id="formControlRange" min="10" max="60" step="5" name="exam_duration"></td>
+                                    <td><p id="range_output_value"></p></td>
+                                </tr>
                                     
                                 </table>
                                 <ul class="nav nav-pills justify-content-end">
     
                                     <li class="nav-item">
-                                    <input type="submit" class="nav-link active" value="Change" name="edit_profile_submit">
+                                    <input type="submit" class="nav-link active" value="Add" name="add_exam">
                                     </li>
                                     
                                 </ul>
@@ -153,7 +178,7 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; CBT Technologies 2020</div>
+                            <div class="text-muted">Copyright &copy; Your Website 2019</div>
                             <div>
                                 <a href="#">Privacy Policy</a>
                                 &middot;
@@ -167,9 +192,23 @@
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="{{asset('adminpage/js/scripts.js')}}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="{{asset('adminpage/assets/demo/chart-area-demo.js')}}"></script>
+        <script src="{{asset('adminpage/assets/demo/chart-bar-demo.js')}}"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
         <script src="{{asset('adminpage/assets/demo/datatables-demo.js')}}"></script>
+        <script type="text/javascript">
+            slider = document.getElementById("formControlRange");
+            output = document.getElementById("range_output_value");
+            output.innerHTML = slider.value + " minutes"; // Display the default slider value
+
+            // Update the current slider value (each time you drag the slider handle)
+            
+            slider.oninput = function() {
+                output.innerHTML = this.value + " minutes";
+            }
+        </script>
     </body>
 </html>
 

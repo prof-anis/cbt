@@ -1,10 +1,4 @@
-<?php
 
-if (!isset($_SESSION['logged_in'])) {
-    header('Location: /project/account/login');
-}
-
-?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -13,14 +7,14 @@ if (!isset($_SESSION['logged_in'])) {
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Dashboard</title>
+        <title>Dashboard - Student</title>
         <link href="<?php echo asset('adminpage/css/styles.css'); ?>" rel="stylesheet"/>
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="<?php echo route('home'); ?>">Exams Portal</a><button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
+            <a class="navbar-brand" href="<?php echo route('student_home'); ?>">Student Portal</a><button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button
             ><!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
                 <div class="input-group">
@@ -31,7 +25,7 @@ if (!isset($_SESSION['logged_in'])) {
                 </div>
             </form>
             <!-- Navbar-->
-            <ul class="navbar-nav ml-auto ml-md-0 ">
+            <ul class="navbar-nav ml-auto ml-md-0">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
@@ -48,11 +42,11 @@ if (!isset($_SESSION['logged_in'])) {
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="<?php echo route('home'); ?>"
+                            <a class="nav-link" href="<?php echo route('student_home'); ?>"
                                 ><div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard</a
                             >
-                            <a class="nav-link" href="<?php echo route('profile'); ?>"
+                            <a class="nav-link" href="<?php echo route('student_profile'); ?>"
                                 ><div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Profile</a
                             >
@@ -74,9 +68,9 @@ if (!isset($_SESSION['logged_in'])) {
                             
                             <?php endforeach ?>
                             <div class="sb-sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="<?php echo route('pay_me'); ?>"
+                            <a class="nav-link" href="charts.html"
                                 ><div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Premiumize</a
+                                Charts</a
                             ><a class="nav-link" href="tables.html"
                                 ><div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Tables</a
@@ -640,7 +634,7 @@ if (!isset($_SESSION['logged_in'])) {
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; CBT Examination 2020</div>
+                            <div class="text-muted">Copyright &copy; CBT Technologies 2020</div>
                             <div>
                                 <a href="#">Privacy Policy</a>
                                 &middot;

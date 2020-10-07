@@ -37,6 +37,9 @@ class QueryBuilder{
         $this->table = $table;
         if ($this->isSelected == 1) {
             $this->query .= " FROM $this->table";
+            if ($this->isSelected == 1) {
+                return $this;
+            }
         }else if ($this->isDeleted ==1){
             $this->query .=" FROM $this->table";
         }else{
@@ -93,6 +96,12 @@ class QueryBuilder{
         $this->query = "DELETE ".$processed;
         $this->isDeleted = 1;
 
+        return $this;
+    }
+
+    public function limit($number){
+        $this->query .= "LIMIT ".$number;
+        
         return $this;
     }
 
